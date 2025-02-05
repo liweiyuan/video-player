@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player</title>
+    <!-- 引入 HLS.js -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+
+<body>
+    <h1>Simple Video Player</h1>
+    <video id="video" controls width="640" height="360"></video>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const video = document.getElementById('video');
+            const videoSrc = '/output/output.m3u8';
+
+            // 首先检查浏览器是否原生支持 HLS
+            if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                // 某些浏览器（例如 Safari）支持 HLS 原生播放
+                video.src = videoSrc;
+            } else if (Hls.isSupported()) {
+                // 使用 HLS.js 播放
+                const hls = new Hls();
+                hls.loadSource(videoSrc);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                    video.play();
+                });
+                // 错误处理
+                hls.on(Hls.Events.ERROR, function (event, data) {
+                    console.error('HLS.js error:', data);
+                });
+            } else {
+                console.error('This browser does not support HLS');
+            }
+        });
+    </script>
+
+    <div>
+        <p>状态：</p>
+        <ul>
+            <li><a href="/convert">点击这里转换视频</a></li>
+            <li>确保已经将视频文件放在 videos 目录下并命名为 input.mp4</li>
+            <li>转换完成后视频将自动显示在这里</li>
+        </ul>
+    </div>
+</body>
+
+</html>
