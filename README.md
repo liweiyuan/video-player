@@ -18,8 +18,8 @@
 
 1. 克隆仓库：
 ```bash
-git clone https://github.com/yourusername/video-hls-converter.git
-cd video-hls-converter
+git clone https://github.com/liweiyuan/video-player.git
+cd video-player
 ```
 
 2. 安装依赖：
@@ -40,6 +40,7 @@ http://localhost:3000
 ## 使用说明
 
 1. 将视频文件放在 `videos` 目录下
+   - 比如 `videos/input.mp4`
 2. 访问 `http://localhost:3000` 
    - 点击按钮 `开始转换` 开始转换视频
    - 转换完成后，可以在 `public/output` 目录下找到转换后的文件
